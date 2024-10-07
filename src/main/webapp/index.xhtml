@@ -6,10 +6,12 @@
 </h:head>
 <h:body>
     <h:form>
-        <h:outputLabel for="name" value="Nom : " />
-        <h:inputText id="name" value="#{myBean.name}" />
-        <h:commandButton value="Soumettre" action="#{myBean.submit}" />
+        <h:inputText id="login" value="#{myBean.name}" placeholder="Enter your name" required="true" requiredMessage="La saisie du login est obligatoire !" />
+        <h:message for="login" styleClass="errorBlock" /> <br/>
+        <h:inputText id="password" value="#{myBean.password}" placeholder="Enter your password" required="true" requiredMessage="La saisie du mot de passe est obligatoire !" />
+        <h:message for="password" styleClass="errorBlock" /> <br/>
+        <h:commandButton value="Submit" action="#{myBean.submit}"/>
     </h:form>
-    <h:outputText value="#{myBean.message}" />
+    <h:outputLabel value="#{myBean.message}"/>
 </h:body>
 </html>
