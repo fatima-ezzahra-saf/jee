@@ -1,17 +1,109 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
     <title>Mon Application JSF</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .form-container {
+            max-width: 600px;
+            width: 100%;
+            background-color: #ccc;
+            padding: 20px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .errorBlock {
+            color: #ff002f;
+            font-size: 12px;
+        }
+
+        .submit-button {
+            background-color: #2150c9;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 6px;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        .submit-button:hover {
+            background-color: #133485;
+        }
+
+        .submit-button:active {
+            background-color: #43a7cb;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
 </h:head>
+
 <h:body>
-    <h:form>
-        <h:inputText id="login" value="#{myBean.name}" placeholder="Enter your name" required="true" requiredMessage="La saisie du login est obligatoire !" />
-        <h:message for="login" styleClass="errorBlock" /> <br/>
-        <h:inputText id="password" value="#{myBean.password}" placeholder="Enter your password" required="true" requiredMessage="La saisie du mot de passe est obligatoire !" />
-        <h:message for="password" styleClass="errorBlock" /> <br/>
-        <h:commandButton value="Submit" action="#{myBean.submit}"/>
-    </h:form>
-    <h:outputLabel value="#{myBean.message}"/>
+    <div class="form-container">
+        <h2>Login</h2>
+
+        <h:form>
+            <h:outputLabel for="email" value="Email:"/>
+            <h:inputText id="email" value="#{myBean.email}" placeholder="Enter your email"
+                         required="true" requiredMessage="L'email est obligatoire !">
+                <f:validateRegex pattern="^[\w.+-]+@[\w.+-]+\.[a-z]{2,}$"
+                                 message="Veuillez entrer une adresse email valide"/>
+            </h:inputText>
+            <h:message for="email" styleClass="errorBlock" /> <br/>
+
+            <h:outputLabel for="password" value="Password:"/>
+            <h:inputSecret id="password" value="#{myBean.password}" placeholder="Enter your password"
+                           required="true" requiredMessage="La saisie du mot de passe est obligatoire !">
+                <f:validateLength minimum="6"/>
+            </h:inputSecret>
+            <h:message for="password" styleClass="errorBlock" /> <br/>
+
+            <h:commandButton value="Submit" action="#{myBean.submit}" styleClass="submit-button" />
+        </h:form>
+
+        <h:outputLabel value="#{myBean.message}" styleClass="message" />
+    </div>
 </h:body>
 </html>
